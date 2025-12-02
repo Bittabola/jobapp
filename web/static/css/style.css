@@ -1,0 +1,585 @@
+/* JobApp - Cover Letter Generator */
+/* Simple, modern, desktop-first design */
+
+:root {
+    --primary: #1a1a2e;
+    --primary-light: #2d2d44;
+    --accent: #4a90d9;
+    --accent-hover: #3a7bc8;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #333333;
+    --text-muted: #666666;
+    --border: #e0e0e0;
+    --success: #28a745;
+    --error: #dc3545;
+    --radius: 8px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* Layout */
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 16px;
+}
+
+/* Form Sections */
+.form-section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.form-section h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--primary);
+}
+
+.optional {
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Form Elements */
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+input[type="text"],
+input[type="url"],
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card-bg);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.15);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+/* File Upload */
+.file-upload {
+    position: relative;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+    transition: border-color 0.2s, background-color 0.2s;
+    cursor: pointer;
+}
+
+.file-upload:hover,
+.file-upload.dragover {
+    border-color: var(--accent);
+    background: rgba(74, 144, 217, 0.05);
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-upload label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--text-muted);
+}
+
+.upload-text {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.file-name {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    display: none;
+}
+
+.file-name.visible {
+    display: block;
+}
+
+/* Toggle Buttons */
+.input-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card-bg);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.toggle-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: 600;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Hidden state */
+.hidden {
+    display: none !important;
+}
+
+/* Progress Section */
+.progress-section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.progress-section h2 {
+    font-size: 18px;
+    margin-bottom: 24px;
+    color: var(--primary);
+}
+
+.progress-steps {
+    max-width: 280px;
+    margin: 0 auto 24px;
+    text-align: left;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    color: var(--text-muted);
+    transition: color 0.2s;
+}
+
+.step-icon {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.step.active {
+    color: var(--accent);
+}
+
+.step.active .step-icon {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: white;
+}
+
+.step.active .step-icon::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+}
+
+.step.complete {
+    color: var(--success);
+}
+
+.step.complete .step-icon {
+    border-color: var(--success);
+    background: var(--success);
+    color: white;
+}
+
+.step.complete .step-icon::after {
+    content: "✓";
+    font-size: 12px;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.progress-note {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Result Section */
+.result-section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.success-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--success);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 20px;
+}
+
+.result-section h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--primary);
+}
+
+.result-meta {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: background-color 0.2s;
+}
+
+.download-btn:hover {
+    background: var(--accent-hover);
+}
+
+.reset-btn {
+    display: block;
+    margin: 16px auto 0;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: inherit;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.reset-btn:hover {
+    color: var(--text);
+}
+
+/* Error Section */
+.error-section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.error-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--error);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 auto 20px;
+}
+
+.error-section h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--primary);
+}
+
+.error-message {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.retry-btn {
+    padding: 14px 32px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: 600;
+    background: var(--error);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.retry-btn:hover {
+    opacity: 0.9;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* Accordion / Advanced Settings */
+.accordion-section {
+    padding: 0;
+}
+
+.accordion-toggle {
+    width: 100%;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.accordion-toggle:hover {
+    color: var(--text);
+}
+
+.toggle-icon {
+    font-size: 10px;
+    transition: transform 0.2s;
+}
+
+.toggle-icon.open {
+    transform: rotate(90deg);
+}
+
+.accordion-content {
+    padding: 0 24px 24px;
+}
+
+.label-hint {
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+#prompt {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 200px;
+}
+
+.prompt-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 500;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.btn-secondary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.prompt-status {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.prompt-status.success {
+    color: var(--success);
+}
+
+.prompt-status.error {
+    color: var(--error);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 24px 16px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .form-section {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+}

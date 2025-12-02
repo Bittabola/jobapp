@@ -1,0 +1,87 @@
+Review and revise this cover letter to sound more human and authentic:
+
+1. Replace any corporate clichés with genuine, plain language, and rephrase any sentences that appear copied directly from the job description so they sound like the candidate’s own words
+2. Eliminate repetitive sentence structures (vary sentence length and starting words)
+3. Add contractions throughout where natural (I'm, it's, don't, can't, you're)
+4. Ensure specificity: replace generic claims with concrete examples drawn from the existing content; do NOT add new achievements, employers, or metrics
+5. Inject subtle personality — warmth, honesty, or genuine connection to the company. A very light touch of wit is fine if appropriate, but avoid jokes or sarcasm that could feel unprofessional
+6. Remove or strongly rewrite any of these common stock phrases; they are overused in templated or AI-generated letters and can make the writing sound generic. If the job posting uses one of these terms, keep it only if it’s part of a concrete, specific sentence:
+   - "I am writing to express my interest in..."
+   - "I am confident that..."
+   - "Thank you for your consideration"
+   - "I look forward to hearing from you"
+   - "In today's fast-paced world..."
+   - "As previously mentioned..."
+   - "Furthermore," "Moreover," "In addition," "Additionally"
+   - "It is important to note that..."
+   - "The role aligns perfectly with my skills"
+   - "Seamless," "robust," "innovative," "transformative," "delve into," "at its core"
+   - "It's not just X, it's Y"
+   - "The role isn't just about X, but also Y"
+7. Read the revised text as if aloud and ensure it flows like real speech, not stiff formal writing
+
+---
+
+Red Flags to Eliminate
+
+After revision, ensure the cover letter avoids these markers of AI-style writing:
+
+- Multiple sentences starting with "I"
+- Transitions like "Furthermore," "Moreover," "Additionally," "In addition"
+- Lack of contractions (should have at least 3–5 throughout)
+- Overly formal or corporate tone throughout
+- No specific examples, metrics, or real details
+- Generic statements about the company that could apply to any organization
+- Repetitive sentence structures or similar sentence lengths
+- Overused generic words such as "passionate," "excited," "innovative," "seamless," "robust," "leverage" used without concrete supporting detail
+- Overly rigid, textbook-like sentences with no variation in rhythm or emphasis
+- Lack of personal voice or personality
+- Paragraphs that sound like they're following a template rather than telling a story
+- No evidence of curiosity, growth, or genuine connection to the role
+
+---
+
+Quick Reference: Phrases to Swap
+
+AI-Style                                → Human-Sounding
+"I am writing to express my interest"   → "I'm excited about this role because..." or jump straight to a specific reason
+"I am confident that"                   → "I know that..." or "What I've learned is..."
+"Thank you for your consideration"      → "I'd love to discuss how I can help you with [specific challenge]" or skip entirely
+"Furthermore, I believe"                → "Here's the thing:" or "Plus," or just start the next sentence naturally
+"In today's fast-paced world"           → Remove entirely or replace with something specific
+"Seamless integration"                  → "Made it work smoothly" or describe the actual outcome
+"Innovative solutions"                  → Name the actual solution specifically
+"I'm passionate about [X]"              → Show passion through specific examples, not declaration
+"I look forward to hearing from you"    → "Let's talk about how I can help you [specific outcome]"
+"At its core, the role requires"        → "The heart of this position is..." or restructure entirely
+
+---
+
+ADDITIONAL CUSTOM RULES
+
+- Avoid corporate jargon, such as "circle back", "align goals", "synergy", "leverage", "streamline", "optimize", "stakeholder", "bandwidth", "deep dive", "move the needle", "low-hanging fruit", "touch base", "loop in", "take offline", "value-add", "best practices", "core competencies", "actionable insights"
+  - If a term like "stakeholder management" or "best practices" is essential to the role or appears explicitly in the job description, you may keep it sparingly in a concrete, specific sentence
+- Avoid overcomplicated or very long sentences. Keep phrasing clear and concise, even when some sentences are longer for natural rhythm
+- Avoid inflated superlatives like "best", "greatest", "most", "top", "leading", "premier", "unparalleled", "exceptional", "outstanding", "remarkable", "extraordinary"
+  - If such words appear in the original letter, keep them only when they are clearly grounded in a specific fact (for example, an external ranking or award)
+- Do NOT use em dashes in the revised letter
+- Do NOT convert paragraphs into bullet points or numbered lists; preserve paragraph format
+
+---
+
+RULES
+
+- Do NOT add new information or claims not present in the original
+- Do NOT remove important content (company name, job title, achievements, metrics, or key responsibilities)
+- Do NOT change employers, job titles, dates, or metrics; you may clarify phrasing but must not alter underlying facts
+- Do NOT make the letter too casual or unprofessional — keep a professional, conversational tone
+- Do NOT add filler or fluff; each sentence should add real content
+- Preserve the candidate's overall tone (more formal vs. more casual) while making it clearer, more specific, and more natural
+- Keep approximately the same length (within 10%)
+- Do NOT mention AI, prompts, or describe your editing process in the output
+
+---
+
+OUTPUT
+
+Return ONLY the rewritten cover letter paragraphs. No explanations, no markdown, no headers, no bullet lists.

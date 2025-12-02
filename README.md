@@ -1,6 +1,13 @@
 # JobApp
 
-Web app that generates tailored cover letters and merges them with your resume.
+A self-hosted web app that generates tailored cover letters and merges them with your resume into a single, ready-to-submit PDF.
+
+## Why JobApp?
+
+- **Two-step AI generation** — First, Google Gemini drafts a cover letter tailored to the job posting. Then, OpenAI rewrites it with a different model and prompt to reduce AI detection signals and produce more natural-sounding text.
+- **Single merged PDF** — Cover letter + resume combined into one document with consistent page numbering.
+- **Privacy-first** — Runs locally on your machine. Your resume and job data never leave your computer (except for API calls to generate text).
+- **Customizable prompts** — Edit the AI prompts directly in the UI to match your tone and style.
 
 ## Setup
 

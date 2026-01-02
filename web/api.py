@@ -2,14 +2,13 @@
 
 import json
 import re
-import uuid
 import asyncio
 from dataclasses import dataclass
 from pathlib import Path
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator, Optional
 
-from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Request
+from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import FileResponse, StreamingResponse
@@ -18,13 +17,11 @@ from app.config import (
     OUTPUT_DIR,
     PROMPTS_DIR,
     FILENAME_SLUG,
-    MAX_UPLOAD_SIZE_BYTES,
     MIN_PROMPT_LENGTH,
     JobInfo,
     logger,
 )
 from app.pdf_converter import html_to_pdf_async
-from app.resume_parser import extract_resume_text
 from app.job_fetcher import fetch_job_description
 from app.cover_letter_generator import generate_cover_letter, humanize_cover_letter
 from app.html_renderer import render_cover_letter_html
@@ -101,7 +98,6 @@ templates = Jinja2Templates(directory="web/templates")
 
 
 async def run_pipeline_async(
-    resume_path: Path,
     job_url: str | None = None,
     job_description: str | None = None,
     job_title: str | None = None,
@@ -116,23 +112,11 @@ async def run_pipeline_async(
     """
     OUTPUT_DIR.mkdir(exist_ok=True)
 
-    # Step 1: Extract resume text
-    yield ("resume", None)
-    try:
-        resume_text = await asyncio.to_thread(extract_resume_text, str(resume_path))
-    except Exception as e:
-        logger.error(f"Failed to read resume: {e}")
-        yield (
-            "error",
-            PipelineResult(
-                success=False,
-                error=str(e),
-                step_failed="resume",
-            ),
-        )
-        return
+    # NOTE: Resume is now read directly from app/data/resume.md in strategy_generator.py
+    # We pass an empty string to generate_cover_letter as legacy placeholder.
+    resume_text = ""
 
-    # Step 2: Get job info
+    # Step 1: Get job info
     yield ("job", None)
     try:
         if job_url:
@@ -160,7 +144,7 @@ async def run_pipeline_async(
     company_slug = sanitize_filename(job_info.company)
     output_path = OUTPUT_DIR / f"{FILENAME_SLUG}_{company_slug}.pdf"
 
-    # Step 3: Generate cover letter with AI
+    # Step 2: Generate cover letter with AI
     yield ("generate", None)
     try:
         cover_letter_text = await asyncio.to_thread(
@@ -181,7 +165,7 @@ async def run_pipeline_async(
         )
         return
 
-    # Step 4: Humanize cover letter (reduce AI detection)
+    # Step 3: Humanize cover letter (reduce AI detection)
     yield ("humanize", None)
     try:
         cover_letter_text = await asyncio.to_thread(
@@ -200,7 +184,7 @@ async def run_pipeline_async(
         )
         return
 
-    # Step 5: Render HTML
+    # Step 4: Render HTML
     yield ("render", None)
     try:
         html_content = await asyncio.to_thread(
@@ -218,7 +202,7 @@ async def run_pipeline_async(
         )
         return
 
-    # Step 6: Convert to PDF (native async)
+    # Step 5: Convert to PDF (native async)
     yield ("pdf", None)
     cover_letter_pdf = OUTPUT_DIR / "cover_letter_temp.pdf"
     try:
@@ -235,28 +219,70 @@ async def run_pipeline_async(
         )
         return
 
-    # Step 7: Merge PDFs
+    # Step 6: Merge PDFs (if resume.pdf exists)
     yield ("merge", None)
+
+    # Give filesystem a moment to release locks on the temp PDF
+    await asyncio.sleep(0.5)
+
     try:
-        await asyncio.to_thread(
-            merge_pdfs,
-            pdf_paths=[str(cover_letter_pdf), str(resume_path)],
-            output_path=str(output_path),
-        )
+        # Use absolute path relative to project root
+        from app.config import APP_DIR
+
+        # APP_DIR is .../app, so resume is in APP_DIR/data/resume.pdf
+        resume_pdf_path = APP_DIR / "data/resume.pdf"
+
+        logger.info(f"Looking for resume at: {resume_pdf_path}")
+        logger.info(f"Cover letter at: {cover_letter_pdf}")
+
+        if resume_pdf_path.exists():
+            logger.info("Resume found. Merging...")
+            await asyncio.to_thread(
+                merge_pdfs,
+                pdf_paths=[str(cover_letter_pdf), str(resume_pdf_path)],
+                output_path=str(output_path),
+            )
+            logger.info(f"Merge complete. Output: {output_path}")
+        else:
+            logger.info("Resume not found. Moving cover letter only.")
+            # Just rename/move if no resume to merge
+            import shutil
+
+            shutil.move(str(cover_letter_pdf), str(output_path))
+            logger.info(f"Move complete. Output: {output_path}")
+
     except Exception as e:
         logger.error(f"PDF merge failed: {e}")
-        yield (
-            "error",
-            PipelineResult(
-                success=False,
-                error=str(e),
-                step_failed="merge",
-            ),
-        )
-        return
+        import traceback
+
+        logger.error(traceback.format_exc())
+
+        # Fallback: Try to save just the cover letter so the user gets something
+        try:
+            logger.info("Attempting fallback: Saving cover letter only.")
+            import shutil
+
+            if cover_letter_pdf.exists():
+                shutil.move(str(cover_letter_pdf), str(output_path))
+                logger.info(f"Fallback successful. Output: {output_path}")
+            else:
+                logger.error("Fallback failed: Temp file missing.")
+        except Exception as fallback_error:
+            logger.error(f"Fallback failed: {fallback_error}")
+            # NOW yield the error since even fallback failed
+            yield (
+                "error",
+                PipelineResult(
+                    success=False,
+                    error=f"Merge and Fallback failed: {e}",
+                    step_failed="merge",
+                ),
+            )
+            return
+
     finally:
-        # Cleanup temp cover letter PDF
-        cover_letter_pdf.unlink(missing_ok=True)
+        if cover_letter_pdf.exists():
+            cover_letter_pdf.unlink()
 
     # Done!
     logger.info(f"Pipeline complete: {output_path}")
@@ -279,7 +305,6 @@ async def home(request: Request):
 
 @app.post("/api/generate")
 async def generate(
-    resume: UploadFile = File(...),
     job_url: str = Form(None),
     job_description: str = Form(None),
     job_title: str = Form(None),
@@ -292,71 +317,46 @@ async def generate(
     Returns a text/event-stream with progress updates as each step completes.
     """
     # Validate inputs
-    if not resume.filename.lower().endswith(".pdf"):
-        return StreamingResponse(
-            _error_stream("Please upload a PDF file"), media_type="text/event-stream"
-        )
-
     if not job_url and not (job_description and job_title and company_name):
         return StreamingResponse(
             _error_stream("Provide either a job URL or manual job details"),
             media_type="text/event-stream",
         )
 
-    # Check file size
-    contents = await resume.read()
-    if len(contents) > MAX_UPLOAD_SIZE_BYTES:
-        return StreamingResponse(
-            _error_stream("Resume file too large (max 10MB)"),
-            media_type="text/event-stream",
-        )
-
-    # Save uploaded file
-    upload_path = UPLOAD_DIR / f"{uuid.uuid4()}.pdf"
-    upload_path.write_bytes(contents)
-
     async def event_stream():
         """Stream SSE events as each pipeline step completes."""
-        try:
-            async for step, result in run_pipeline_async(
-                resume_path=upload_path,
-                job_url=job_url,
-                job_description=job_description,
-                job_title=job_title,
-                company_name=company_name,
-                custom_instructions=instructions,
-            ):
-                if step == "error" and result:
-                    # Map step to user-friendly message
-                    error_msg = ERROR_MESSAGES.get(
-                        result.step_failed, "An error occurred"
-                    )
-                    yield _sse_event("error", {"error": error_msg})
-                    return
+        async for step, result in run_pipeline_async(
+            job_url=job_url,
+            job_description=job_description,
+            job_title=job_title,
+            company_name=company_name,
+            custom_instructions=instructions,
+        ):
+            if step == "error" and result:
+                # Map step to user-friendly message
+                error_msg = ERROR_MESSAGES.get(result.step_failed, "An error occurred")
+                yield _sse_event("error", {"error": error_msg})
+                return
 
-                if step == "complete" and result:
-                    yield _sse_event(
-                        "complete",
-                        {
-                            "success": True,
-                            "download_url": f"/api/download/{result.pdf_path.name}",
-                            "filename": result.pdf_path.name,
-                            "job_title": result.job_title,
-                            "company": result.company,
-                        },
-                    )
-                    return
+            if step == "complete" and result:
+                yield _sse_event(
+                    "complete",
+                    {
+                        "success": True,
+                        "download_url": f"/api/download/{result.pdf_path.name}",
+                        "filename": result.pdf_path.name,
+                        "job_title": result.job_title,
+                        "company": result.company,
+                    },
+                )
+                return
 
-                # Progress step
-                if step in STEP_MESSAGES:
-                    yield _sse_event(
-                        "progress",
-                        {"step": step, "message": STEP_MESSAGES[step]},
-                    )
-
-        finally:
-            # Cleanup uploaded file
-            upload_path.unlink(missing_ok=True)
+            # Progress step
+            if step in STEP_MESSAGES:
+                yield _sse_event(
+                    "progress",
+                    {"step": step, "message": STEP_MESSAGES[step]},
+                )
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
 

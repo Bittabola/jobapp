@@ -23,7 +23,7 @@ from app.config import (
 )
 from app.pdf_converter import html_to_pdf_async
 from app.job_fetcher import fetch_job_description
-from app.cover_letter_generator import generate_cover_letter, humanize_cover_letter
+from app.cover_letter_generator import generate_cover_letter, humanize_cover_letter  # noqa: F401 - humanize_cover_letter paused but kept for easy re-enable
 from app.html_renderer import render_cover_letter_html
 from app.pdf_merger import merge_pdfs
 
@@ -166,23 +166,25 @@ async def run_pipeline_async(
         return
 
     # Step 3: Humanize cover letter (reduce AI detection)
-    yield ("humanize", None)
-    try:
-        cover_letter_text = await asyncio.to_thread(
-            humanize_cover_letter,
-            cover_letter_text,
-        )
-    except Exception as e:
-        logger.error(f"Humanization failed: {e}")
-        yield (
-            "error",
-            PipelineResult(
-                success=False,
-                error=str(e),
-                step_failed="humanize",
-            ),
-        )
-        return
+    # PAUSED: Skipping humanization to reduce latency and cost.
+    # Uncomment the block below to re-enable.
+    # yield ("humanize", None)
+    # try:
+    #     cover_letter_text = await asyncio.to_thread(
+    #         humanize_cover_letter,
+    #         cover_letter_text,
+    #     )
+    # except Exception as e:
+    #     logger.error(f"Humanization failed: {e}")
+    #     yield (
+    #         "error",
+    #         PipelineResult(
+    #             success=False,
+    #             error=str(e),
+    #             step_failed="humanize",
+    #         ),
+    #     )
+    #     return
 
     # Step 4: Render HTML
     yield ("render", None)

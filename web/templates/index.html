@@ -16,22 +16,9 @@
         <main>
             <!-- Form Section -->
             <form id="generate-form" enctype="multipart/form-data">
-                <!-- Step 1: Resume Upload -->
+                <!-- Step 1: Job Info -->
                 <section class="form-section">
-                    <h2>1. Upload Your Resume</h2>
-                    <div class="file-upload" id="resume-dropzone">
-                        <input type="file" id="resume" name="resume" accept=".pdf" required>
-                        <label for="resume">
-                            <span class="upload-icon">+</span>
-                            <span class="upload-text">Drag & drop PDF or click to browse</span>
-                        </label>
-                        <div class="file-name" id="resume-filename"></div>
-                    </div>
-                </section>
-
-                <!-- Step 2: Job Info -->
-                <section class="form-section">
-                    <h2>2. Job Information</h2>
+                    <h2>1. Job Information</h2>
                     
                     <!-- Toggle between URL and Manual input -->
                     <div class="input-toggle">
@@ -69,9 +56,9 @@
                     </div>
                 </section>
 
-                <!-- Step 3: Custom Instructions -->
+                <!-- Step 2: Custom Instructions -->
                 <section class="form-section">
-                    <h2>3. Custom Instructions <span class="optional">(optional)</span></h2>
+                    <h2>2. Custom Instructions <span class="optional">(optional)</span></h2>
                     <textarea id="instructions" name="instructions" rows="3"
                               placeholder="E.g., Emphasize my HubSpot experience..."></textarea>
                 </section>
@@ -112,10 +99,6 @@
             <section class="progress-section hidden" id="progress-section">
                 <h2>Generating your cover letter...</h2>
                 <div class="progress-steps">
-                    <div class="step" data-step="resume">
-                        <span class="step-icon"></span>
-                        <span class="step-text">Reading resume</span>
-                    </div>
                     <div class="step" data-step="job">
                         <span class="step-icon"></span>
                         <span class="step-text">Fetching job details</span>
@@ -124,10 +107,12 @@
                         <span class="step-icon"></span>
                         <span class="step-text">Generating with AI</span>
                     </div>
+                    <!-- Humanization step paused - uncomment when re-enabled
                     <div class="step" data-step="humanize">
                         <span class="step-icon"></span>
                         <span class="step-text">Humanizing text</span>
                     </div>
+                    -->
                     <div class="step" data-step="render">
                         <span class="step-icon"></span>
                         <span class="step-text">Rendering HTML</span>

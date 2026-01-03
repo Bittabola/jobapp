@@ -52,7 +52,41 @@ Strongly avoid the following generic phrases; they are overused in templated and
 - "It's not just X, it's Y"
 - "The role isn't just about X, but also Y"
 
-3. Add Authenticity Through Specificity and Detail
+3. Show IMPACT, Not Duties
+
+The biggest mistake in professional writing: describing what the job WAS instead of what YOU DID.
+
+CRITICAL DISTINCTION:
+- DUTY (bad): "Managed inventory" — this is what any person in that role does
+- IMPACT (good): "Reduced inventory errors by reorganizing stock system" — this is what YOU changed
+
+For every claim, ask: "What changed, improved, or got fixed because of this person?"
+
+WEAK VERBS TO AVOID (these undersell the candidate):
+- "responsible for" — empty, says nothing about results
+- "worked on" — vague, implies no ownership
+- "ensured" — passive, hides actual actions
+- "helped" / "helped with" — diminishes contribution
+- "assisted" / "assisted in" — makes them sound like a sidekick
+- "supported" — implies they weren't the main driver
+- "handled" — generic, no indication of skill or outcome
+- "was involved in" — completely hides what they actually did
+
+STRONG ACTION VERBS TO USE INSTEAD:
+- For building/creating: built, created, designed, developed, launched, introduced, established
+- For improving: improved, increased, reduced, cut, streamlined, redesigned, optimized, transformed
+- For leading: led, managed, drove, spearheaded, coordinated, directed, oversaw
+- For problem-solving: solved, fixed, resolved, eliminated, addressed, troubleshot
+- For teaching/growing: trained, mentored, coached, guided, onboarded, developed (people)
+- For achieving: delivered, achieved, completed, exceeded, hit, surpassed
+
+REFRAME WEAK STATEMENTS:
+❌ "Helped customers when needed" → ✅ "Resolved 20+ customer issues per shift, often handling escalations others avoided"
+❌ "Assisted the team" → ✅ "Trained every new hire because management said I explain things better than anyone"
+❌ "Supported daily operations" → ✅ "Kept the store running solo during closing shifts, handling everything from inventory to customer issues"
+❌ "Responsible for managing the budget" → ✅ "Cut annual platform spend by $100k by consolidating redundant tools"
+
+4. Add Authenticity Through Specificity and Detail
 
 - Replace generic statements with concrete examples, numbers, and specific results
 - Instead of: "I improved efficiency" → Write: "I cut our response time from 48 hours to 2 hours"
@@ -61,7 +95,7 @@ Strongly avoid the following generic phrases; they are overused in templated and
 - Use precise language: "three studies" instead of "many studies," "25% increase" instead of "significant improvement"
 - Use only metrics, project names, and details that appear in the input; do NOT invent them
 
-4. Inject Personal Voice and Mild Imperfections
+5. Inject Personal Voice and Mild Imperfections
 
 - Include contractions throughout — this is critical for sounding human
 - Use everyday language and conversational expressions where appropriate
@@ -72,7 +106,7 @@ Strongly avoid the following generic phrases; they are overused in templated and
   - It is fine to start sentences with "And" or "But" when it flows naturally
 - Personal touches must remain professional — avoid oversharing or details unrelated to the role
 
-5. Vary Sentence Structure and Rhythm
+6. Vary Sentence Structure and Rhythm
 
 - Use a mix of sentence lengths:
   - Short: "I built it. I led it. I owned it."
@@ -81,7 +115,7 @@ Strongly avoid the following generic phrases; they are overused in templated and
 - Aim for noticeable variety in sentence lengths within each paragraph; avoid long stretches of sentences that all feel the same length
 - If a paragraph reads in a monotone when read aloud, restructure it for more varied rhythm
 
-6. Build Genuine Connection to the Company
+7. Build Genuine Connection to the Company
 
 - Reference 2–3 specific company details when available: recent news, company values, products, culture, or specific challenges they're addressing
 - Explain why THIS company specifically appeals to the candidate (not a generic "your company does cool things" statement)
@@ -90,14 +124,14 @@ Strongly avoid the following generic phrases; they are overused in templated and
 - If you are not given real company details, do NOT invent them; instead, use whatever specific reasons the candidate has provided for their interest
 - When appropriate, naturally weave in key phrases from the job description (skills, tools, responsibilities) so long as they truly reflect the candidate’s experience and appear in original sentences
 
-7. Tell a Micro-Narrative, Not a List
+8. Tell a Micro-Narrative, Not a List
 
 - Structure the letter as a flowing story about how the candidate's background positions them for this specific role
 - Avoid step-by-step lists or numbered points — keep the letter in paragraph form
 - Use cause-and-effect language: "Because I spent years managing Linux infrastructure, I developed deep expertise in exactly the kind of system architecture your team is building"
 - Let ideas naturally overlap rather than compartmentalizing each achievement into its own paragraph
 
-8. Match the Candidate's Authentic Tone
+9. Match the Candidate's Authentic Tone
 
 - Ask: What does the candidate sound like in actual emails or conversations? Capture that voice
 - Are they more formal or casual? Direct or diplomatic? More warm or reserved? Incorporate those tendencies
@@ -107,7 +141,7 @@ Strongly avoid the following generic phrases; they are overused in templated and
 - If the user specifies a preferred tone (“more formal”, “more relaxed”, “minimal personality”), follow that request even if it differs from the default
 - The letter should feel like an extension of how the candidate naturally communicates, elevated slightly for professionalism
 
-9. Eliminate Formulaic Transitions and Structures
+10. Eliminate Formulaic Transitions and Structures
 
 - Avoid obvious paragraph formulas like: "First, I did this. Second, I did that. In conclusion..."
 - Avoid hackneyed transitional phrases that sound like templates
@@ -115,7 +149,7 @@ Strongly avoid the following generic phrases; they are overused in templated and
 - Treat these connectors as options, not requirements — do NOT repeat the same phrase (e.g., "Here's the thing:") multiple times in the letter
 - Vary how paragraphs begin and connect to one another
 
-10. Add Imperfect Humanity
+11. Add Imperfect Humanity
 
 - Include one moment where the candidate acknowledges growth, learning, or what they don't yet know
 - Show curiosity or genuine questions about the role or team
